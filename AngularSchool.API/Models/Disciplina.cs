@@ -20,7 +20,7 @@ namespace AngularSchool.API.Models
         public int Id { get; set; }
         public string Nome { get; set; }
         public int CargaHoraria { get; set; }
-        public int? PrerequisitoId { get; set; } = null;
+        public int? PrerequisitoId { get; set; } = null; //Podemos colocar um valor aqui como FK de algum outra disciplina("Pra fazer uma disciplina tem que ter feito outra", a lógica é meio que essa).
         public Disciplina Prerequisito { get; set; }
         public int CursoId { get; set; }
         public Curso Curso { get; set; }

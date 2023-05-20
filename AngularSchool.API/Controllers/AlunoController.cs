@@ -1,4 +1,5 @@
 ﻿using AngularSchool.API.Database;
+using AngularSchool.API.Dtos;
 using AngularSchool.API.Models;
 using AngularSchool.API.Repositories;
 using Microsoft.AspNetCore.Http;
@@ -24,7 +25,23 @@ namespace AngularSchool.API.Controllers
         [HttpGet]
         public IActionResult PegarTodos()
         {
-            return Ok(_repo.PegarTodosAlunos(true));
+            var alunos = _repo.PegarTodosAlunos(true);
+                var AlunosDadosAlunosNecessarios = new List<AlunoDto>();
+            
+            foreach (var aluno in alunos)
+            {
+                AlunosDadosAlunosNecessarios.Add(new AlunoDto()
+                {
+                    Id = aluno.Id,
+                    Matricula = aluno.Matricula,
+                    NomeSobrenome = $"{aluno.Nome} {aluno.Sobrenome}",
+                    Telefone = aluno.Telefone,
+                    DataInicio = aluno.DataInicio,
+                    Ativo = aluno.Ativo
+                });  
+            }
+            return Ok(AlunosDadosAlunosNecessarios);
+
         }
 
 

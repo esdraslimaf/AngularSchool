@@ -28,18 +28,18 @@ namespace AngularSchool.API.Database
 
             modelBuilder.Entity<Professor>()
                 .HasData(new List<Professor>(){
-                     new Professor(1, 1, "John", "Doe"),
-        new Professor(2, 2, "Jane", "Smith"),
-        new Professor(3, 3, "Michael", "Johnson"),
-        new Professor(4, 4, "Emily", "Davis"),
-        new Professor(5, 5, "Daniel", "Wilson")
+                 new Professor(1, 1, "John", "Doe"),
+                 new Professor(2, 2, "Jane", "Smith"),
+                 new Professor(3, 3, "Michael", "Johnson"),
+                 new Professor(4, 4, "Emily", "Davis"),
+                 new Professor(5, 5, "Daniel", "Wilson")
                 });
 
             modelBuilder.Entity<Curso>()
                 .HasData(new List<Curso>{
-                    new Curso(1, "Engenharia de Software"),
-        new Curso(2, "Análise e Desenvolvimento de Sistemas"),
-        new Curso(3, "Ciências da Computação")
+                 new Curso(1, "Engenharia de Software"),
+                 new Curso(2, "Análise e Desenvolvimento de Sistemas"),
+                 new Curso(3, "Ciências da Computação")
                 });
 
             modelBuilder.Entity<Disciplina>()
@@ -59,10 +59,10 @@ namespace AngularSchool.API.Database
             modelBuilder.Entity<Aluno>()
     .HasData(new List<Aluno>(){
        new Aluno(1, 1, "Joana", "Silva", DateTime.Parse("01/10/2003"), "111111111"),
-        new Aluno(2, 2, "Maria", "Santos", DateTime.Parse("02/15/2003"), "22222222"),
-        new Aluno(3, 3, "Carolina", "Pereira", DateTime.Parse("03/20/2003"), "33333333"),
-        new Aluno(4, 4, "Ana", "Lima", DateTime.Parse("04/25/2003"), "44444444"),
-        new Aluno(5, 5, "Bruno", "Ferreira", DateTime.Parse("05/30/2003"), "5555555"),
+        new Aluno(2, 2, "Maria", "Santos", DateTime.Parse("02/11/2003"), "22222222"),
+        new Aluno(3, 3, "Carolina", "Pereira", DateTime.Parse("03/07/2003"), "33333333"),
+        new Aluno(4, 4, "Ana", "Lima", DateTime.Parse("04/05/2003"), "44444444"),
+        new Aluno(5, 5, "Bruno", "Ferreira", DateTime.Parse("03/05/2003"), "5555555"),
         new Aluno(6, 6, "Rafael", "Martins", DateTime.Parse("06/05/2003"), "88888888"),
         new Aluno(7, 7, "Luciana", "Rodrigues", DateTime.Parse("07/10/2003"), "7777777")
     });
