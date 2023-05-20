@@ -11,13 +11,13 @@ namespace AngularSchool.API.Repositories
         bool SaveChanges();
 
         //Assinatura de métodos para aluno 
-        Aluno[] PegarTodosAlunos(bool incluirDisciplina);
-        Aluno[] PegarAlunosPorDisciplinaId();
-        Aluno[] PegarAlunosPorId();
+        Aluno[] PegarTodosAlunos(bool incluirProfessor);
+        Aluno[] PegarAlunosPorDisciplinaId(int disciplinaId, bool incluirProfessor);
+        Aluno PegarAlunosPorId(int alunoid, bool incluirProfessor = false);
 
         //Assinatura de métodos para professor
-        Professor[] PegarTodosProfessores();
-        Professor[] PegarProfessoresPorDisciplinaId();
-        Professor[] PegarProfessoresPorId();
+        Professor[] PegarTodosProfessores(bool incluirAlunos);
+        Professor[] PegarProfessoresPorDisciplinaId(int disciplinaId, bool incluirAlunos);
+        Professor PegarProfessoresPorId(int professorId, bool incluirAlunos);
     }
 }

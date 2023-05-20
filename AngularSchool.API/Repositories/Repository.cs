@@ -32,44 +32,79 @@ namespace AngularSchool.API.Repositories
         }
 
         #region Implementação dos métodos de Alunos
-        public Aluno[] PegarTodosAlunos(bool incluirDisciplina)
+        public Aluno[] PegarTodosAlunos(bool incluirProfessor = false)
         {
             IQueryable<Aluno> query = _db.Alunos;
-            if (incluirDisciplina)
+            if (incluirProfessor)
             {
-                query = query.Include(a => a.AlunosDisciplinas).ThenInclude(ad => ad.Disciplina).ThenInclude(ad => ad.Professor);
+                query = query.Include(a => a.AlunosDisciplinas).ThenInclude(ad=>ad.Disciplina).ThenInclude(d=>d.Professor);
             }
             query = query.AsNoTracking().OrderBy(a => a.Id);
             return query.ToArray();
 
         }
 
-        public Aluno[] PegarAlunosPorDisciplinaId()
+        public Aluno[] PegarAlunosPorDisciplinaId(int disciplinaId, bool incluirProfessor = false)
         {
-            throw new System.NotImplementedException();
+            IQueryable<Aluno> query = _db.Alunos;
+            if (incluirProfessor)
+            {
+                query = query.Include(a => a.AlunosDisciplinas).ThenInclude(ad => ad.Disciplina).ThenInclude(ad => ad.Professor);
+            }
+            query = query.AsNoTracking().OrderBy(a => a.Id).Where(a => a.AlunosDisciplinas.Any(ad => ad.DisciplinaId == disciplinaId));
+
+            return query.ToArray();
         }
 
-        public Aluno[] PegarAlunosPorId()
+        public Aluno PegarAlunosPorId(int alunoid, bool incluirProfessor = false)
         {
-            throw new System.NotImplementedException();
+            IQueryable<Aluno> query = _db.Alunos;
+            if (incluirProfessor)
+            {
+                query = query.Include(a => a.AlunosDisciplinas).ThenInclude(ad => ad.Disciplina).ThenInclude(ad => ad.Professor);
+            }
+            query = query.AsNoTracking().OrderBy(a => a.Id).Where(a=>a.Id==alunoid);
+
+            return query.FirstOrDefault();
         }
         #endregion
 
 
         #region Implementação dos métodos de Professores
-        public Professor[] PegarTodosProfessores()
+        public Professor[] PegarTodosProfessores(bool incluirAlunos = false)
         {
-            throw new System.NotImplementedException();
+            IQueryable<Professor> query = _db.Professores;
+            if (incluirAlunos)
+            {
+                query = query.Include(prof => prof.Disciplinas).ThenInclude(d => d.AlunosDisciplinas).ThenInclude(ad => ad.Aluno);
+            }
+            query = query.AsNoTracking().OrderBy(prof => prof.Id);
+            return query.ToArray();
         }
 
-        public Professor[] PegarProfessoresPorDisciplinaId()
+        public Professor[] PegarProfessoresPorDisciplinaId(int disciplinaId, bool incluirAlunos = false) 
         {
-            throw new System.NotImplementedException();
+            IQueryable<Professor> query = _db.Professores;
+            if (incluirAlunos)
+            {
+                query = query.Include(prof => prof.Disciplinas).ThenInclude(dis => dis.AlunosDisciplinas).ThenInclude(ad => ad.Aluno);
+            }
+
+            query = query.AsNoTracking().OrderBy(prof => prof.Id).Where(prof => prof.Disciplinas.Any(dis => dis.Id == disciplinaId));
+            return query.ToArray();
         }
 
-        public Professor[] PegarProfessoresPorId()
+        public Professor PegarProfessoresPorId(int professorId, bool incluirAlunos=false)
         {
-            throw new System.NotImplementedException();
+            IQueryable<Professor> query = _db.Professores;
+
+            if (incluirAlunos)
+            {
+                query = query.Include(prof => prof.Disciplinas).ThenInclude(dis => dis.AlunosDisciplinas).ThenInclude(ad => ad.Aluno);
+            }
+
+            query = query.AsNoTracking().Where(professor => professor.Id == professorId);
+            return query.FirstOrDefault();
         }
         #endregion
     }
