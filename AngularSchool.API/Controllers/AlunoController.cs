@@ -2,6 +2,7 @@
 using AngularSchool.API.Dtos;
 using AngularSchool.API.Models;
 using AngularSchool.API.Repositories;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,33 +16,18 @@ namespace AngularSchool.API.Controllers
     public class AlunoController : ControllerBase
     {
         private readonly IRepository _repo;
-
-        public AlunoController(IRepository repo)
+        private readonly IMapper _mapper;
+        public AlunoController(IRepository repo, IMapper mapper)
         {
             _repo = repo;
-
+            _mapper = mapper;
         }
 
         [HttpGet]
         public IActionResult PegarTodos()
         {
             var alunos = _repo.PegarTodosAlunos(true);
-                var AlunosDadosAlunosNecessarios = new List<AlunoDto>();
-            
-            foreach (var aluno in alunos)
-            {
-                AlunosDadosAlunosNecessarios.Add(new AlunoDto()
-                {
-                    Id = aluno.Id,
-                    Matricula = aluno.Matricula,
-                    NomeSobrenome = $"{aluno.Nome} {aluno.Sobrenome}",
-                    Telefone = aluno.Telefone,
-                    DataInicio = aluno.DataInicio,
-                    Ativo = aluno.Ativo
-                });  
-            }
-            return Ok(AlunosDadosAlunosNecessarios);
-
+            return Ok(_mapper.Map<IEnumerable<AlunoDto>>(alunos));
         }
 
 
@@ -53,35 +39,50 @@ namespace AngularSchool.API.Controllers
             {
                 return BadRequest("Aluno inexistente");
             }
-            return Ok(aluno);
+            return Ok(_mapper.Map<AlunoDto>(aluno));
+        }
+
+        [HttpGet("forr")]
+        public IActionResult forr()
+        {
+            return Ok(new CadastraAlunoDto());
         }
 
         [HttpPost]
-        public IActionResult AdicionarAluno([FromBody]Aluno aluno)
+        public IActionResult AdicionarAluno([FromBody] CadastraAlunoDto alunodto)
         {
+            var aluno = _mapper.Map<Aluno>(alunodto);
+
             _repo.Add(aluno);
-            if (_repo.SaveChanges()) return Ok(aluno);
-            else return BadRequest("Não foi possível adicionar o aluno!");
+            if (_repo.SaveChanges()) return Created($"/api/aluno/{alunodto.Id}", _mapper.Map<AlunoDto>(aluno));
+            
+            return BadRequest("Não foi possível adicionar o aluno!");
         }
 
         [HttpPut]
-        public IActionResult AtualizarAlunoPut([FromBody] Aluno aluno)
+        public IActionResult AtualizarAlunoPut([FromBody] CadastraAlunoDto alunodto)
         {
-            var Aluno = _repo.PegarAlunosPorId(aluno.Id);
+            var Aluno = _repo.PegarAlunosPorId(alunodto.Id);
+
             if (Aluno == null) return BadRequest("Aluno não encontrado!");
-            _repo.Update(aluno);
-            if (_repo.SaveChanges()) return Ok(aluno);
-            else return BadRequest("Não foi possível adicionar o aluno!");
+
+            _mapper.Map(alunodto, Aluno);
+
+            _repo.Update(Aluno);
+            if (_repo.SaveChanges()) return Created($"/api/aluno/{alunodto.Id}", _mapper.Map<AlunoDto>(Aluno));
+            else return BadRequest("Não foi possível atualizar o aluno!");
         }
 
         [HttpPatch]
-        public IActionResult AtualizarAlunoPatch([FromBody] Aluno aluno)
+        public IActionResult AtualizarAlunoPatch([FromBody] CadastraAlunoDto alunodto)
         {
-            var Aluno = _repo.PegarAlunosPorId(aluno.Id);
+            var Aluno = _repo.PegarAlunosPorId(alunodto.Id);
+
             if (Aluno == null) return BadRequest("Aluno não encontrado!");
-            _repo.Update(aluno);
-            if (_repo.SaveChanges()) return Ok(aluno);
-            else return BadRequest("Não foi possível adicionar o aluno!");
+            _mapper.Map(alunodto, Aluno);
+            _repo.Update(Aluno);
+            if (_repo.SaveChanges()) return Created($"/api/aluno/{alunodto.Id}", _mapper.Map<AlunoDto>(Aluno));
+            else return BadRequest("Não foi possível atualizar o aluno!");
         }
 
         [HttpDelete("{id}")]
