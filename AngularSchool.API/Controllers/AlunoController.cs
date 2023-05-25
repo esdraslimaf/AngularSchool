@@ -49,39 +49,39 @@ namespace AngularSchool.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult AdicionarAluno([FromBody] CadastraAlunoDto alunodto)
+        public IActionResult AdicionarAluno([FromBody] CadastraAlunoDto Cadalunodto)
         {
-            var aluno = _mapper.Map<Aluno>(alunodto);
+            var aluno = _mapper.Map<Aluno>(Cadalunodto);
 
             _repo.Add(aluno);
-            if (_repo.SaveChanges()) return Created($"/api/aluno/{alunodto.Id}", _mapper.Map<AlunoDto>(aluno));
+            if (_repo.SaveChanges()) return Created($"/api/aluno/{Cadalunodto.Id}", _mapper.Map<AlunoDto>(aluno));
             
             return BadRequest("Não foi possível adicionar o aluno!");
         }
 
         [HttpPut]
-        public IActionResult AtualizarAlunoPut([FromBody] CadastraAlunoDto alunodto)
+        public IActionResult AtualizarAlunoPut([FromBody] CadastraAlunoDto Cadalunodto)
         {
-            var Aluno = _repo.PegarAlunosPorId(alunodto.Id);
+            var Aluno = _repo.PegarAlunosPorId(Cadalunodto.Id);
 
             if (Aluno == null) return BadRequest("Aluno não encontrado!");
 
-            _mapper.Map(alunodto, Aluno);
+            _mapper.Map(Cadalunodto, Aluno);
 
             _repo.Update(Aluno);
-            if (_repo.SaveChanges()) return Created($"/api/aluno/{alunodto.Id}", _mapper.Map<AlunoDto>(Aluno));
+            if (_repo.SaveChanges()) return Created($"/api/aluno/{Cadalunodto.Id}", _mapper.Map<AlunoDto>(Aluno));
             else return BadRequest("Não foi possível atualizar o aluno!");
         }
 
         [HttpPatch]
-        public IActionResult AtualizarAlunoPatch([FromBody] CadastraAlunoDto alunodto)
+        public IActionResult AtualizarAlunoPatch([FromBody] CadastraAlunoDto Cadalunodto)
         {
-            var Aluno = _repo.PegarAlunosPorId(alunodto.Id);
+            var Aluno = _repo.PegarAlunosPorId(Cadalunodto.Id);
 
             if (Aluno == null) return BadRequest("Aluno não encontrado!");
-            _mapper.Map(alunodto, Aluno);
+            _mapper.Map(Cadalunodto, Aluno);
             _repo.Update(Aluno);
-            if (_repo.SaveChanges()) return Created($"/api/aluno/{alunodto.Id}", _mapper.Map<AlunoDto>(Aluno));
+            if (_repo.SaveChanges()) return Created($"/api/aluno/{Cadalunodto.Id}", _mapper.Map<AlunoDto>(Aluno));
             else return BadRequest("Não foi possível atualizar o aluno!");
         }
 
