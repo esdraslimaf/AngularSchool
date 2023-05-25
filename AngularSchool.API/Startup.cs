@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using AngularSchool.API.Database;
 using AngularSchool.API.Repositories;
@@ -14,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+
 
 namespace AngularSchool.API
 {
@@ -36,6 +39,25 @@ namespace AngularSchool.API
 
             services.AddControllers().AddNewtonsoftJson(options=>options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("AngularSchoolAPI", new Microsoft.OpenApi.Models.OpenApiInfo()
+                {
+                    Title = "AngularSchool API",
+                    Version = "1.0",
+                    Description = "Projeto de CRUD API que utilizará Angular",
+                    Contact = new Microsoft.OpenApi.Models.OpenApiContact
+                    {
+                        Name = "Esdras Lima",
+                        Url = new Uri("https://github.com/esdraslimaf")
+                    }
+                }); 
+
+                var arquivocomentarioxml = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var caminhodoarquivodecomentariosxml = Path.Combine(AppContext.BaseDirectory, arquivocomentarioxml);
+                options.IncludeXmlComments(caminhodoarquivodecomentariosxml);
+            });
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,7 +71,12 @@ namespace AngularSchool.API
             // app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseSwagger().UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/AngularSchoolAPI/swagger.json", "AngularSchoolApi");
+                options.RoutePrefix = "";
+            });
+      
             // app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

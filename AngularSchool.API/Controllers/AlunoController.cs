@@ -11,18 +11,30 @@ using System.Linq;
 
 namespace AngularSchool.API.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class AlunoController : ControllerBase
     {
         private readonly IRepository _repo;
         private readonly IMapper _mapper;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="repo"></param>
+        /// <param name="mapper"></param>
         public AlunoController(IRepository repo, IMapper mapper)
         {
             _repo = repo;
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Método para buscar todos os alunos no banco de dados
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult PegarTodos()
         {
@@ -30,7 +42,11 @@ namespace AngularSchool.API.Controllers
             return Ok(_mapper.Map<IEnumerable<AlunoDto>>(alunos));
         }
 
-
+        /// <summary>
+        /// Método para buscar apenas um único Aluno no banco e convertê-lo para AlunoDto.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public IActionResult PegarPorId(int id)
         {
@@ -42,12 +58,21 @@ namespace AngularSchool.API.Controllers
             return Ok(_mapper.Map<AlunoDto>(aluno));
         }
 
+        /// <summary>
+        /// Formato do JSON para cadastrar aluno
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("forr")]
         public IActionResult forr()
         {
             return Ok(new CadastraAlunoDto());
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Cadalunodto"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult AdicionarAluno([FromBody] CadastraAlunoDto Cadalunodto)
         {

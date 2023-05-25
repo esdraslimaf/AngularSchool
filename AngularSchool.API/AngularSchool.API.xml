@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AngularSchool.API</name>
+    </assembly>
+    <members>
+        <member name="T:AngularSchool.API.Controllers.AlunoController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AngularSchool.API.Controllers.AlunoController.#ctor(AngularSchool.API.Repositories.IRepository,AutoMapper.IMapper)">
+            <summary>
+            
+            </summary>
+            <param name="repo"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:AngularSchool.API.Controllers.AlunoController.PegarTodos">
+            <summary>
+            Método para buscar todos os alunos no banco de dados
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AngularSchool.API.Controllers.AlunoController.PegarPorId(System.Int32)">
+            <summary>
+            Método para buscar apenas um único Aluno no banco e convertê-lo para AlunoDto.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AngularSchool.API.Controllers.AlunoController.forr">
+            <summary>
+            Formato do JSON para cadastrar aluno
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AngularSchool.API.Controllers.AlunoController.AdicionarAluno(AngularSchool.API.Dtos.CadastraAlunoDto)">
+            <summary>
+            
+            </summary>
+            <param name="Cadalunodto"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
