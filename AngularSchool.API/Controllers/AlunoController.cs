@@ -14,8 +14,9 @@ namespace AngularSchool.API.Controllers
     /// <summary>
     /// 
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
     public class AlunoController : ControllerBase
     {
         private readonly IRepository _repo;

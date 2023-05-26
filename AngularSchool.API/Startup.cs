@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,21 +38,41 @@ namespace AngularSchool.API
 
             services.AddScoped<IRepository, Repository>();
 
+            services.AddVersionedApiExplorer(options =>
+            {
+                options.GroupNameFormat = "'v'VVV";
+                options.SubstituteApiVersionInUrl = true;
+            }).AddApiVersioning(options =>
+            {
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.ReportApiVersions = true;
+            });
+
             services.AddControllers().AddNewtonsoftJson(options=>options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            var apiProviderDescription = services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
+            
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("AngularSchoolAPI", new Microsoft.OpenApi.Models.OpenApiInfo()
+                foreach(var description in apiProviderDescription.ApiVersionDescriptions)
                 {
-                    Title = "AngularSchool API",
-                    Version = "1.0",
-                    Description = "Projeto de CRUD API que utilizará Angular",
-                    Contact = new Microsoft.OpenApi.Models.OpenApiContact
+                    options.SwaggerDoc(description.GroupName, new Microsoft.OpenApi.Models.OpenApiInfo()
                     {
-                        Name = "Esdras Lima",
-                        Url = new Uri("https://github.com/esdraslimaf")
-                    }
-                }); 
+                        Title = "AngularSchool API",
+                        Version = description.ApiVersion.ToString(),
+                        Description = "Projeto de CRUD API que utilizará Angular",
+                        Contact = new Microsoft.OpenApi.Models.OpenApiContact
+                        {
+                            Name = "Esdras Lima",
+                            Url = new Uri("https://github.com/esdraslimaf")
+                        }
+                    });
+
+                }
+
+                
 
                 var arquivocomentarioxml = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var caminhodoarquivodecomentariosxml = Path.Combine(AppContext.BaseDirectory, arquivocomentarioxml);
@@ -61,7 +82,7 @@ namespace AngularSchool.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider apiVersionDescriptionProvider)
         {
             if (env.IsDevelopment())
             {
@@ -73,7 +94,11 @@ namespace AngularSchool.API
             app.UseRouting();
             app.UseSwagger().UseSwaggerUI(options =>
             {
-                options.SwaggerEndpoint("/swagger/AngularSchoolAPI/swagger.json", "AngularSchoolApi");
+                foreach(var description in apiVersionDescriptionProvider.ApiVersionDescriptions)
+                {
+                    options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+                }
+                
                 options.RoutePrefix = "";
             });
       
