@@ -1,4 +1,7 @@
-﻿using AngularSchool.API.Models;
+﻿using AngularSchool.API.Helpers;
+using AngularSchool.API.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AngularSchool.API.Repositories
 {
@@ -11,12 +14,13 @@ namespace AngularSchool.API.Repositories
         bool SaveChanges();
 
         //Assinatura de métodos para aluno 
-        Aluno[] PegarTodosAlunos(bool incluirProfessor);
+        Task<PageList<Aluno>> PegarTodosAlunosAsync(PageParams pageParams, bool incluirProfessor = false);
         Aluno[] PegarAlunosPorDisciplinaId(int disciplinaId, bool incluirProfessor);
         Aluno PegarAlunosPorId(int alunoid, bool incluirProfessor = false);
 
         //Assinatura de métodos para professor
-        Professor[] PegarTodosProfessores(bool incluirAlunos);
+        Task<Professor[]> PegarTodosProfessoresAsync(bool incluirAlunos = false);
+        Professor[] PegarTodosProfessores(bool incluirAlunos = false);
         Professor[] PegarProfessoresPorDisciplinaId(int disciplinaId, bool incluirAlunos);
         Professor PegarProfessoresPorId(int professorId, bool incluirAlunos);
     }

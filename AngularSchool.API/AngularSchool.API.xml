@@ -16,7 +16,7 @@
             <param name="repo"></param>
             <param name="mapper"></param>
         </member>
-        <member name="M:AngularSchool.API.Controllers.AlunoController.PegarTodos">
+        <member name="M:AngularSchool.API.Controllers.AlunoController.PegarTodos(AngularSchool.API.Helpers.PageParams)">
             <summary>
             Método para buscar todos os alunos no banco de dados
             </summary>

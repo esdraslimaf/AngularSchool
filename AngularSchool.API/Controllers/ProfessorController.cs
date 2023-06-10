@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AngularSchool.API.Controllers
 {
@@ -26,11 +27,25 @@ namespace AngularSchool.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult PegarProfessores()
+        public async Task<IActionResult> PegarProfessores()
         {
-            var alunos = _repo.PegarTodosProfessores(true);
-            return Ok(_mapper.Map<ICollection<ProfessorDto>>(alunos));
+            var professores = await _repo.PegarTodosProfessoresAsync(true);
+            return Ok(_mapper.Map<ICollection<ProfessorDto>>(professores));
         }
+        /* Quando usamos o await para chamar um método assíncrono, você está esperando a conclusão da tarefa assíncrona retornada por esse método. No seu caso, o método PegarTodosProfessoresAsync do repositório retorna uma tarefa Task<Professor[]>. O await no controlador aguarda a conclusão dessa tarefa antes de continuar a execução do código.
+         * Portanto, o await no controlador é necessário para esperar que o método PegarTodosProfessoresAsync do repositório seja concluído antes de continuar a execução do código no controlador. Ele aguarda a conclusão da tarefa assíncrona retornada pelo método do repositório para garantir que você tenha os dados necessários antes de mapeá-los e retorná-los como uma resposta HTTP (usando Ok()).
+
+         * Resumindo, embora o método PegarTodosProfessoresAsync do repositório já tenha um await, é necessário usar o await novamente no controlador para aguardar a conclusão da tarefa assíncrona retornada por esse método.
+           Se você não utilizar o await no controlador ao chamar o método assíncrono PegarTodosProfessoresAsync do repositório, a chamada será feita de forma síncrona.
+
+           Sem o await, o controlador não esperará a conclusão da tarefa assíncrona retornada pelo método do repositório. Em vez disso, ele continuará a executar o código subsequente imediatamente.
+
+           Isso pode levar a problemas, pois o código subsequente no controlador provavelmente dependerá dos dados retornados pelo método assíncrono do repositório. Se você não esperar a conclusão da tarefa assíncrona, é possível que o controlador tente acessar ou manipular dados que ainda não foram totalmente recuperados, resultando em comportamento imprevisível ou erros.
+
+           Portanto, é importante utilizar o await no controlador para aguardar a conclusão da tarefa assíncrona e garantir que você tenha os dados corretos antes de prosseguir com o restante do código. Isso garante a execução correta e sincronizada das operações assíncronas em seu aplicativo.   
+         */
+
+
 
         /*   [HttpGet("PegarPorNome")] //Usar QueryString para treinar
            public IActionResult PegarPorNome(string nome)
@@ -75,7 +90,7 @@ namespace AngularSchool.API.Controllers
             var Professor = _repo.PegarProfessoresPorId(CadProfessorDto.Id, false);
             if (Professor == null) return BadRequest("Professor não encontrado!");
 
-            _mapper.Map(CadProfessorDto,Professor);
+            _mapper.Map(CadProfessorDto, Professor);
 
             _repo.Update(Professor);
 

@@ -1,5 +1,7 @@
 ﻿using AngularSchool.API.Database;
 using AngularSchool.API.Dtos;
+using AngularSchool.API.Extensions;
+using AngularSchool.API.Helpers;
 using AngularSchool.API.Models;
 using AngularSchool.API.Repositories;
 using AutoMapper;
@@ -8,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AngularSchool.API.Controllers
 {
@@ -37,10 +40,15 @@ namespace AngularSchool.API.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult PegarTodos()
+        public async Task<IActionResult> PegarTodos([FromQuery]PageParams pageParams)
         {
-            var alunos = _repo.PegarTodosAlunos(true);
-            return Ok(_mapper.Map<IEnumerable<AlunoDto>>(alunos));
+            var alunos = await _repo.PegarTodosAlunosAsync(pageParams,true);
+            
+            var alunosConvertidosDto = _mapper.Map<IEnumerable<AlunoDto>>(alunos);
+
+            Response.AddPagination(alunos.PaginaAtual,alunos.TamanhoDasPaginas, alunos.ItensTotal,alunos.TotalDePaginas);
+
+            return Ok(alunosConvertidosDto);
         }
 
         /// <summary>
