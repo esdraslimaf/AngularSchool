@@ -9,44 +9,45 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AngularSchool.API.Migrations
 {
     [DbContext(typeof(SchoolContext))]
-    [Migration("20230520013854_Inicial")]
-    partial class Inicial
+    [Migration("20230613021908_iniciarMySql")]
+    partial class iniciarMySql
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.0");
+                .HasAnnotation("ProductVersion", "3.1.0")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("AngularSchool.API.Models.Aluno", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<bool>("Ativo")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime?>("DataFim")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("DataInicio")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("DataNascimento")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("Matricula")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Nome")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Sobrenome")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Telefone")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
@@ -57,7 +58,7 @@ namespace AngularSchool.API.Migrations
                         {
                             Id = 1,
                             Ativo = true,
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 557, DateTimeKind.Local).AddTicks(4822),
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 957, DateTimeKind.Local).AddTicks(3711),
                             DataNascimento = new DateTime(2003, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Matricula = 1,
                             Nome = "Joana",
@@ -68,7 +69,7 @@ namespace AngularSchool.API.Migrations
                         {
                             Id = 2,
                             Ativo = true,
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 557, DateTimeKind.Local).AddTicks(7794),
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 957, DateTimeKind.Local).AddTicks(7265),
                             DataNascimento = new DateTime(2003, 11, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Matricula = 2,
                             Nome = "Maria",
@@ -79,7 +80,7 @@ namespace AngularSchool.API.Migrations
                         {
                             Id = 3,
                             Ativo = true,
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 557, DateTimeKind.Local).AddTicks(7864),
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 957, DateTimeKind.Local).AddTicks(7357),
                             DataNascimento = new DateTime(2003, 7, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Matricula = 3,
                             Nome = "Carolina",
@@ -90,7 +91,7 @@ namespace AngularSchool.API.Migrations
                         {
                             Id = 4,
                             Ativo = true,
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 557, DateTimeKind.Local).AddTicks(7873),
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 957, DateTimeKind.Local).AddTicks(7369),
                             DataNascimento = new DateTime(2003, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Matricula = 4,
                             Nome = "Ana",
@@ -101,7 +102,7 @@ namespace AngularSchool.API.Migrations
                         {
                             Id = 5,
                             Ativo = true,
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 557, DateTimeKind.Local).AddTicks(7879),
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 957, DateTimeKind.Local).AddTicks(7377),
                             DataNascimento = new DateTime(2003, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Matricula = 5,
                             Nome = "Bruno",
@@ -112,7 +113,7 @@ namespace AngularSchool.API.Migrations
                         {
                             Id = 6,
                             Ativo = true,
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 557, DateTimeKind.Local).AddTicks(7893),
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 957, DateTimeKind.Local).AddTicks(7395),
                             DataNascimento = new DateTime(2003, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Matricula = 6,
                             Nome = "Rafael",
@@ -123,7 +124,7 @@ namespace AngularSchool.API.Migrations
                         {
                             Id = 7,
                             Ativo = true,
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 557, DateTimeKind.Local).AddTicks(7899),
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 957, DateTimeKind.Local).AddTicks(7404),
                             DataNascimento = new DateTime(2003, 10, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Matricula = 7,
                             Nome = "Luciana",
@@ -135,16 +136,16 @@ namespace AngularSchool.API.Migrations
             modelBuilder.Entity("AngularSchool.API.Models.AlunoCurso", b =>
                 {
                     b.Property<int>("AlunoId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("CursoId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("DataFim")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("DataInicio")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.HasKey("AlunoId", "CursoId");
 
@@ -156,19 +157,19 @@ namespace AngularSchool.API.Migrations
             modelBuilder.Entity("AngularSchool.API.Models.AlunoDisciplina", b =>
                 {
                     b.Property<int>("AlunoId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("DisciplinaId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("DataFim")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("DataInicio")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<double?>("Nota")
-                        .HasColumnType("REAL");
+                        .HasColumnType("double");
 
                     b.HasKey("AlunoId", "DisciplinaId");
 
@@ -182,161 +183,161 @@ namespace AngularSchool.API.Migrations
                             AlunoId = 1,
                             DisciplinaId = 2,
                             DataFim = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 557, DateTimeKind.Local).AddTicks(9799)
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 957, DateTimeKind.Local).AddTicks(9889)
                         },
                         new
                         {
                             AlunoId = 1,
                             DisciplinaId = 4,
                             DataFim = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 558, DateTimeKind.Local).AddTicks(654)
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 958, DateTimeKind.Local).AddTicks(792)
                         },
                         new
                         {
                             AlunoId = 1,
                             DisciplinaId = 5,
                             DataFim = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 558, DateTimeKind.Local).AddTicks(695)
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 958, DateTimeKind.Local).AddTicks(826)
                         },
                         new
                         {
                             AlunoId = 2,
                             DisciplinaId = 1,
                             DataFim = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 558, DateTimeKind.Local).AddTicks(698)
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 958, DateTimeKind.Local).AddTicks(829)
                         },
                         new
                         {
                             AlunoId = 2,
                             DisciplinaId = 2,
                             DataFim = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 558, DateTimeKind.Local).AddTicks(700)
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 958, DateTimeKind.Local).AddTicks(831)
                         },
                         new
                         {
                             AlunoId = 2,
                             DisciplinaId = 5,
                             DataFim = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 558, DateTimeKind.Local).AddTicks(705)
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 958, DateTimeKind.Local).AddTicks(836)
                         },
                         new
                         {
                             AlunoId = 3,
                             DisciplinaId = 1,
                             DataFim = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 558, DateTimeKind.Local).AddTicks(707)
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 958, DateTimeKind.Local).AddTicks(838)
                         },
                         new
                         {
                             AlunoId = 3,
                             DisciplinaId = 2,
                             DataFim = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 558, DateTimeKind.Local).AddTicks(708)
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 958, DateTimeKind.Local).AddTicks(840)
                         },
                         new
                         {
                             AlunoId = 3,
                             DisciplinaId = 3,
                             DataFim = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 558, DateTimeKind.Local).AddTicks(710)
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 958, DateTimeKind.Local).AddTicks(841)
                         },
                         new
                         {
                             AlunoId = 4,
                             DisciplinaId = 1,
                             DataFim = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 558, DateTimeKind.Local).AddTicks(713)
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 958, DateTimeKind.Local).AddTicks(845)
                         },
                         new
                         {
                             AlunoId = 4,
                             DisciplinaId = 4,
                             DataFim = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 558, DateTimeKind.Local).AddTicks(715)
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 958, DateTimeKind.Local).AddTicks(847)
                         },
                         new
                         {
                             AlunoId = 4,
                             DisciplinaId = 5,
                             DataFim = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 558, DateTimeKind.Local).AddTicks(717)
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 958, DateTimeKind.Local).AddTicks(849)
                         },
                         new
                         {
                             AlunoId = 5,
                             DisciplinaId = 4,
                             DataFim = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 558, DateTimeKind.Local).AddTicks(718)
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 958, DateTimeKind.Local).AddTicks(850)
                         },
                         new
                         {
                             AlunoId = 5,
                             DisciplinaId = 5,
                             DataFim = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 558, DateTimeKind.Local).AddTicks(720)
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 958, DateTimeKind.Local).AddTicks(852)
                         },
                         new
                         {
                             AlunoId = 6,
                             DisciplinaId = 1,
                             DataFim = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 558, DateTimeKind.Local).AddTicks(722)
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 958, DateTimeKind.Local).AddTicks(853)
                         },
                         new
                         {
                             AlunoId = 6,
                             DisciplinaId = 2,
                             DataFim = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 558, DateTimeKind.Local).AddTicks(723)
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 958, DateTimeKind.Local).AddTicks(855)
                         },
                         new
                         {
                             AlunoId = 6,
                             DisciplinaId = 3,
                             DataFim = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 558, DateTimeKind.Local).AddTicks(725)
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 958, DateTimeKind.Local).AddTicks(857)
                         },
                         new
                         {
                             AlunoId = 6,
                             DisciplinaId = 4,
                             DataFim = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 558, DateTimeKind.Local).AddTicks(728)
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 958, DateTimeKind.Local).AddTicks(860)
                         },
                         new
                         {
                             AlunoId = 7,
                             DisciplinaId = 1,
                             DataFim = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 558, DateTimeKind.Local).AddTicks(729)
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 958, DateTimeKind.Local).AddTicks(862)
                         },
                         new
                         {
                             AlunoId = 7,
                             DisciplinaId = 2,
                             DataFim = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 558, DateTimeKind.Local).AddTicks(731)
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 958, DateTimeKind.Local).AddTicks(863)
                         },
                         new
                         {
                             AlunoId = 7,
                             DisciplinaId = 3,
                             DataFim = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 558, DateTimeKind.Local).AddTicks(733)
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 958, DateTimeKind.Local).AddTicks(865)
                         },
                         new
                         {
                             AlunoId = 7,
                             DisciplinaId = 4,
                             DataFim = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 558, DateTimeKind.Local).AddTicks(734)
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 958, DateTimeKind.Local).AddTicks(867)
                         },
                         new
                         {
                             AlunoId = 7,
                             DisciplinaId = 5,
                             DataFim = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 558, DateTimeKind.Local).AddTicks(736)
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 958, DateTimeKind.Local).AddTicks(868)
                         });
                 });
 
@@ -344,10 +345,10 @@ namespace AngularSchool.API.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Nome")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
@@ -375,22 +376,22 @@ namespace AngularSchool.API.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("CargaHoraria")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("CursoId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Nome")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<int?>("PrerequisitoId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("ProfessorId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -489,28 +490,28 @@ namespace AngularSchool.API.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<bool>("Ativo")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime?>("DataFim")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("DataInicio")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Nome")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<int>("Registro")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Sobrenome")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Telefone")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
@@ -521,7 +522,7 @@ namespace AngularSchool.API.Migrations
                         {
                             Id = 1,
                             Ativo = true,
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 551, DateTimeKind.Local).AddTicks(3684),
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 823, DateTimeKind.Local).AddTicks(3415),
                             Nome = "John",
                             Registro = 1,
                             Sobrenome = "Doe"
@@ -530,7 +531,7 @@ namespace AngularSchool.API.Migrations
                         {
                             Id = 2,
                             Ativo = true,
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 552, DateTimeKind.Local).AddTicks(8049),
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 825, DateTimeKind.Local).AddTicks(5454),
                             Nome = "Jane",
                             Registro = 2,
                             Sobrenome = "Smith"
@@ -539,7 +540,7 @@ namespace AngularSchool.API.Migrations
                         {
                             Id = 3,
                             Ativo = true,
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 552, DateTimeKind.Local).AddTicks(8124),
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 825, DateTimeKind.Local).AddTicks(5572),
                             Nome = "Michael",
                             Registro = 3,
                             Sobrenome = "Johnson"
@@ -548,7 +549,7 @@ namespace AngularSchool.API.Migrations
                         {
                             Id = 4,
                             Ativo = true,
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 552, DateTimeKind.Local).AddTicks(8129),
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 825, DateTimeKind.Local).AddTicks(5575),
                             Nome = "Emily",
                             Registro = 4,
                             Sobrenome = "Davis"
@@ -557,7 +558,7 @@ namespace AngularSchool.API.Migrations
                         {
                             Id = 5,
                             Ativo = true,
-                            DataInicio = new DateTime(2023, 5, 19, 22, 38, 53, 552, DateTimeKind.Local).AddTicks(8130),
+                            DataInicio = new DateTime(2023, 6, 12, 23, 19, 6, 825, DateTimeKind.Local).AddTicks(5577),
                             Nome = "Daniel",
                             Registro = 5,
                             Sobrenome = "Wilson"

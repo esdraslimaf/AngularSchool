@@ -34,7 +34,7 @@ namespace AngularSchool.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<SchoolContext>(
-                context=>context.UseSqlite(Configuration.GetConnectionString("MyConnection")));
+                context=>context.UseMySql(Configuration.GetConnectionString("MyConnectionSql")));
 
             services.AddScoped<IRepository, Repository>();
 
